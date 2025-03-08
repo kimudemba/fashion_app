@@ -9,19 +9,32 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/react": "^3.10.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@prisma/client": "^6.4.1",
+    "@reduxjs/toolkit": "^2.6.1",
+    "axios": "^1.8.2",
+    "bcryptjs": "^3.0.2",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.4.10",
+    "jsonwebtoken": "^9.0.2",
+    "next": "15.2.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "15.2.1"
+    "react-redux": "^9.2.0",
+    "tailwind-merge": "^3.0.2"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.2.1",
-    "@eslint/eslintrc": "^3"
+    "prisma": "^6.4.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }

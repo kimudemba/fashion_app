@@ -1,0 +1,103 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  password        String
+  name            String?
+  profileImage    String?
+  preferences     Json?
+  sizingData      Json?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  wishlists       Wishlist[]
+  orders          Order[]
+}
+
+model Outfit {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  style       String
+  occasion    String
+  season      String
+  imageUrl    String
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  wishlists   Wishlist[]
+}
+
+model Product {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  price       Float
+  retailerId  String
+  imageUrl    String
+  category    String
+  sizes       String[]
+  colors      String[]
+  stock       Int
+  outfits     Outfit[]
+  orderItems  OrderItem[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Retailer {
+  id          String    @id @default(cuid())
+  name        String
+  apiKey      String?
+  apiEndpoint String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  userId      String
+  user        User        @relation(fields: [userId], references: [id])
+  status      String
+  total       Float
+  items       OrderItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model OrderItem {
+  id          String    @id @default(cuid())
+  orderId     String
+  order       Order     @relation(fields: [orderId], references: [id])
+  productId   String
+  product     Product   @relation(fields: [productId], references: [id])
+  quantity    Int
+  size        String?
+  color       String?
+  price       Float
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Wishlist {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  outfitId    String
+  outfit      Outfit    @relation(fields: [outfitId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
